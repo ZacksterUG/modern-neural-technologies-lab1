@@ -45,17 +45,21 @@ if __name__ == "__main__":
                        help='Show probabilities for all classes')
     args = parser.parse_args()
 
-
+    try:
         # Предобработка изображения
-    processed_img = preprocess_image(args.image_path)
-    
-    # Предсказание
-    if args.probs:
-        probabilities = predict(processed_img)
-        print("Class probabilities:")
-        for i, prob in enumerate(probabilities[0]):
-            print(f"{i}: {prob:.4f}")
-    else:
-        prediction = predict(processed_img, probabilities=False)
-        print(f"Predicted digit: {prediction}")
+        processed_img = preprocess_image(args.image_path)
+        
+        # Предсказание
+        if args.probs:
+            probabilities = predict(processed_img)
+            print("Class probabilities:")
+            for i, prob in enumerate(probabilities[0]):
+                print(f"{i}: {prob:.4f}")
+        else:
+            prediction = predict(processed_img, probabilities=False)
+            print(f"Predicted digit: {prediction[0]}")
+            
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        exit(1)
             
